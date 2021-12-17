@@ -34,10 +34,8 @@
          cost-of-trip 0]
     (let [look-right (get-at-coordinate ipt (move-right pos))
           look-down (get-at-coordinate ipt (move-down pos))]
-      (cond (= pos end-pos) (do (println "We reached the end!") cost-of-trip)
-            (< look-right look-down)
-              (do (println (format "Moving right from %s" pos))
-                  (recur (move-right pos) (+ cost-of-trip look-right)))
-            :else (do (println (format "Moving down from %s" pos))
-                      (recur (move-down pos) (+ cost-of-trip look-down)))))))
+      (cond (= pos end-pos) cost-of-trip
+            (< look-right look-down) (recur (move-right pos)
+                                            (+ cost-of-trip look-right))
+            :else (recur (move-down pos) (+ cost-of-trip look-down))))))
 #_(run-sim input)
